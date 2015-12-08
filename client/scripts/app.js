@@ -4,6 +4,9 @@ var app = {
     $.ajax({
       url: 'https://api.parse.com/1/classes/chatterbox',
       type: 'GET',
+      data: {
+        order: "-createdAt"   
+      },
       success: function (data) {
         app.postToDOM(data);
         console.log('chatterbox: Message recieved. Data: ', data);
@@ -31,7 +34,9 @@ var app = {
     }
   },
 
-  send : function(message){
+  send : function(){
+    var message = $('#newMessage').val();
+    console.log(message);
     $.ajax({
       // This is the url you should use to communicate with the parse API server.
       url: 'https://api.parse.com/1/classes/chatterbox',

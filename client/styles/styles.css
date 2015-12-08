@@ -51,7 +51,6 @@ form {
     padding: 20px;
     padding-left: 0;
     margin-bottom: 20px;
-    border: solid 1px black;
 }
 
 form input[type=text] {
