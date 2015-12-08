@@ -1,5 +1,9 @@
 var app = {
 
+  username : decodeURI(window.location.search.slice(window.location.search.indexOf("=") + 1)) ,
+
+  roomname : "lobby",
+
   fetch : function() { 
     $.ajax({
       url: 'https://api.parse.com/1/classes/chatterbox',
@@ -27,8 +31,8 @@ var app = {
     $('.chat').remove();
     var array = obj.results;
     for( var i = 0; i < array.length; i++ ){
-      var username = $("<div>").addClass("username").text(_.escape(array[i].username));
-      var message = $("<div>").addClass("message").text(_.escape(array[i].message));
+      var username = $("<div>").addClass("username").text(array[i].username);
+      var message = $("<div>").addClass("message").text(array[i].text);
       var chat = $("<div>").addClass("chat").append(username).append(message);
       $("#main").append(chat);
     }
@@ -41,7 +45,7 @@ var app = {
       // This is the url you should use to communicate with the parse API server.
       url: 'https://api.parse.com/1/classes/chatterbox',
       type: 'POST',
-      data: JSON.stringify(message),
+      data: JSON.stringify({ text: message, username: app.username, roomname: app.roomname }),
       contentType: 'application/json',
       success: function (data) {
         console.log('chatterbox: Message sent. Data: ', data);
