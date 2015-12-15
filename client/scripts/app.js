@@ -6,7 +6,7 @@ var app = {
 
   fetch : function() { 
     $.ajax({
-      url: 'http://127.0.0.1:3000/',
+      url: 'http://127.0.0.1:3000/classes/lobby',
       type: 'GET',
       // data: {
       //   order: "-createdAt"   
@@ -29,9 +29,9 @@ var app = {
 
   postToDOM : function(obj){
     $('.chat').remove();
-    _.each(obj.results, function () {
-      var username = $("<div>").addClass("username").text(array[i].username);
-      var message = $("<div>").addClass("message").text(array[i].text);
+    _.each(obj.results, function(value) {
+      var username = $("<div>").addClass("username").text(value.username);
+      var message = $("<div>").addClass("message").text(value.text);
       var chat = $("<div>").addClass("chat").append(username).append(message);
       $("#main").append(chat);
     });
@@ -42,7 +42,7 @@ var app = {
     console.log(message);
     $.ajax({
       // This is the url you should use to communicate with the parse API server.
-      url: 'https://api.parse.com/1/classes/chatterbox',
+      url: 'http://127.0.0.1:3000/classes/lobby',
       type: 'POST',
       data: JSON.stringify({ text: message, username: app.username, roomname: app.roomname }),
       contentType: 'application/json',
