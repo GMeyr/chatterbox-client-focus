@@ -6,11 +6,11 @@ var app = {
 
   fetch : function() { 
     $.ajax({
-      url: 'https://api.parse.com/1/classes/chatterbox',
+      url: 'http://127.0.0.1:3000/',
       type: 'GET',
-      data: {
-        order: "-createdAt"   
-      },
+      // data: {
+      //   order: "-createdAt"   
+      // },
       success: function (data) {
         app.postToDOM(data);
         console.log('chatterbox: Message recieved. Data: ', data);
@@ -24,18 +24,17 @@ var app = {
 
   init : function() {
     this.fetch();
-    setInterval(this.fetch, 1000);
+    setInterval(this.fetch, 10000);
   },
 
   postToDOM : function(obj){
     $('.chat').remove();
-    var array = obj.results;
-    for( var i = 0; i < array.length; i++ ){
+    _.each(obj.results, function () {
       var username = $("<div>").addClass("username").text(array[i].username);
       var message = $("<div>").addClass("message").text(array[i].text);
       var chat = $("<div>").addClass("chat").append(username).append(message);
       $("#main").append(chat);
-    }
+    });
   },
 
   send : function(){
