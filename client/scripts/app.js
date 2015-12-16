@@ -14,6 +14,7 @@ var app = {
       success: function (data) {
         app.postToDOM(data);
         console.log('chatterbox: Message recieved. Data: ', data);
+        console.log("First message", data.results[0]);
       },
       error: function (data) {
         // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
@@ -28,8 +29,10 @@ var app = {
   },
 
   postToDOM : function(obj){
+    console.log("Obj.results getting passed to postToDOM", obj.results);
     $('.chat').remove();
     _.each(obj.results, function(value) {
+      console.log("value.username", value.username);
       var username = $("<div>").addClass("username").text(value.username);
       var message = $("<div>").addClass("message").text(value.text);
       var chat = $("<div>").addClass("chat").append(username).append(message);
